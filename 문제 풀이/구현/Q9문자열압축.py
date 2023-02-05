@@ -5,5 +5,6 @@ def solution(s):
     for i in range(len(s)):
         
     return answer
+print('hello')
 
 solution("abcabcabcabcdededededede")
