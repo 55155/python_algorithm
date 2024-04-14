@@ -448,3 +448,49 @@ def plus(depth, n,m):
             answer.pop()
             
 plus(0,n,m)
+
+
+
+import sys
+l = [list(map(int, sys.stdin.readline().split())) for i in range(9)]
+
+board = []
+for i in range(9):
+    for j in range(9):
+        if l[i][j] == 0:
+            board.append((i,j))
+            
+def rule(board):
+
+    row = board[0]
+    col = board[1]
+    check1 = (row//3) * 3 
+    check2 = (col//3) * 3
+    
+    for i in range(9):
+        if (l[row][col] == l[row][i] and col != i) or (l[row][col] == l[i][col] and row != i):
+            return False
+
+    for i in range(check1, check1+3):
+        for j in range(check2, check2+3):
+            if l[row][col] == l[i][j] and (row != i and col != j ):
+                return False
+
+    return True
+
+def sdoku(depth): 
+    
+    if depth == len(board):
+        for i in l:
+            print(' '.join(map(str, i)))
+        exit(0)
+
+    else:
+        for i in range(1,10):
+            l[board[depth][0]][board[depth][1]] = i
+            if rule(board[depth]):
+                sdoku(depth + 1)
+            l[board[depth][0]][board[depth][1]] = 0
+
+
+sdoku(0)

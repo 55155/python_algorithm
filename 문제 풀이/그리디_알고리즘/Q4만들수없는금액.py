@@ -16,3 +16,8 @@ for x in data:
     target += x
 
 print(target)
+
+for x in data: # 1 2 3 4 5 
+    if target < x: 
+        break
+    target += x
