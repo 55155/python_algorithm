@@ -14,13 +14,13 @@ def change_dice(dir_num):
     # initial position 기준 dice정의 -> 
     # index로 정의
     if dir_num == 0: # 동
-        dice[0], dice[1], dice[2], dice[3], di = [dice[3], dice[1], dice[0], dice[5], dice[4], dice[2]]
+        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[3], dice[1], dice[0], dice[5], dice[4], dice[2]
     elif dir_num == 1: # 서
-        dice = [dice[2], dice[1], dice[5], dice[0], dice[4], dice[3]]
+        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[2], dice[1], dice[5], dice[0], dice[4], dice[3]
     elif dir_num == 2: # 북 
-        dice = [dice[4], dice[0], dice[2], dice[3], dice[5], dice[1]]
+        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[4], dice[0], dice[2], dice[3], dice[5], dice[1]
     elif dir_num == 3: # 남 
-        dice = [dice[1], dice[5], dice[2], dice[3], dice[0], dice[4]]
+        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[1], dice[5], dice[2], dice[3], dice[0], dice[4]
 
 drow = [0,0,-1,1]
 dcol = [1,-1,0,0]
@@ -43,9 +43,9 @@ for i in range(command_num):
         change_dice(direction)
         if board[nrow][ncol] == 0:
             board[nrow][ncol] = dice[5]
-        dice[5] = board[nrow][ncol] if board[nrow][ncol] != 0 else dice[5]
-        
-        board[nrow][ncol] = 0
+        else:
+            dice[5] = board[nrow][ncol]
+            board[nrow][ncol] = 0
         # 1기준 : 동쪽; + 2, 서쪽; +3, 북쪽; +1, 남쪽; +4
         # 2기준 : 동쪽; + 1, 서쪽; +2, 남쪽; -1
         print(dice[0])
