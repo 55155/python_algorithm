@@ -23,7 +23,6 @@ def DFS(row,col,value,depth): # start_depth == 1, end_depth == 4
     global max_value,visited
     if depth == 3:
         max_value = max_value if max_value > value else value
-
     else:
         for i in range(4): # 방향
             nrow = row + drow[i]
