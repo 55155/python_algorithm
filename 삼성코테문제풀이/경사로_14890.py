@@ -1,11 +1,11 @@
-N, L = map(int,input().split())
-# height, row, col
-import copy
-board = [[copy.deepcopy([0])*11]*N for i in range(N)]
-for i in range(N):
-    temp = list(map(int, input().split()))
-    for i in range(N): # 3 3 3 3 3 3 [1][i][j] [2][i][j] [3][i][j]
-        
-for i in board:
-    print(i)
+# 입력부
+N, L = map(int, input().split())
+board = []
+for i in range(N): # 2차원
+    temp = list(map(int,input().split()))
+    board.append(temp)
 
+for row in range(N):
+    print(board[row])
+print()
+print(board[0:6][0])

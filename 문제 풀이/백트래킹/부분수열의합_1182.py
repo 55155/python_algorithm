@@ -17,6 +17,6 @@ def DFS(index, depth, sum, limit):
                 visited[i] = False
 
 for limit in range(1, N+1): # 5개 모두 더하는 경우
-    DFS(0, 0, 0,limit)
+    DFS(0, 0, 0, limit)
 
 print(count)
