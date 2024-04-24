@@ -1,3 +1,6 @@
+# 참고 
+# https://bio-info.tistory.com/230
+
 # 입력부
 N = int(input())
 board_origin = []
@@ -8,8 +11,7 @@ for i in range(N):
 import copy
 max_value = 0
 # 상하좌우
-drow = [-1,1,0,0]
-dcol = [0,0,-1,1]
+
 def rule(row, col):
     if row >= N or row < 0:
         return False
@@ -17,73 +19,109 @@ def rule(row, col):
         return False
     return True
 def move(command_num, board):
+    already_sum = []
     if command_num == 1: # 상
-        for row in range(N): # 0
-            for col in range(N): # 0
-                for i in range(row, 0, -1): # 2 1 0
-                    if board[row][col] == 0:    
-                        break
-                    elif rule(row-1, col) and board[row][col] != 0 and board[row-1][col] == 0:
-                    # 현재 board[row][i] 값이 0이 아니고, 다음칸이 빈칸이면, 
-                        board[row-1][col] = board[row][col]
-                        board[row][col] = 0
-                    elif rule(i-1, col) and board[i][col] != 0 and board[i][col] == board[i-1][col]:
-                        board[i-1][col] += board[i][col]
-                        board[i][col] = 0
+        for col in range(N): # 0
+            point = 0
+            for row in range(1, N): # 0
+                # point 까지 밀어야함
+                if board[row][col]:
+                    temp = board[row][col]
+                    board[row][col] = 0
+                    if temp == board[point][col]:
+                        board[point][col] *= 2
+                        point += 1
+                    elif board[point][col] == 0:
+                        board[point][col] = temp
+                    else: # 둘이 다른 경우 point += 1
+                        point += 1
+                        board[point][col] = temp
+
     elif command_num == 2: # 하
-        for row in range(N, -1, -1): # 0
-            for col in range(N): # 0
-                for i in range(row, N-1): # 2 1 0
-                    if board[i][col] == 0:
-                        break
-                    elif rule(i+1, col) and board[i][col] != 0 and board[i+1][col] == 0:
-                    # 현재 board[row][i] 값이 0이 아니고, 다음칸이 빈칸이면, 
-                        board[i+1][col] = board[i][col]
-                        board[i][col] = 0
-                    elif rule(i+1, col) and board[i][col] != 0 and board[i][col] == board[i+1][col]:
-                        board[i+1][col] += board[i][col]
-                        board[i][col] = 0
+       for col in range(N): # 0
+            point = N-1
+            for row in range(N-2, -1, -1): # 0
+                # point 까지 밀어야함
+                if board[row][col]:
+                    temp = board[row][col]
+                    board[row][col] = 0
+                    if temp == board[point][col]:
+                        board[point][col] += temp
+                        point -= 1
+                    elif board[point][col] == 0:
+                        board[point][col] = temp
+                    else: # 둘이 다른 경우 point += 1
+                        point -= 1
+                        board[point][col] = temp
     elif command_num == 3:
         for row in range(N): # 0
-            for col in range(N): # 0
-                for i in range(col, 0, -1): # 2 1 0
-                    if board[row][i] == 0:
-                        break
-                    elif rule(row, i-1) and board[row][i] != 0 and board[row][i-1] == 0:
-                    # 현재 board[row][i] 값이 0이 아니고, 다음칸이 빈칸이면, 
-                        board[row][i-1] = board[row][i]
-                        board[row][i] = 0
-                    elif rule(row, i-1) and board[row][i] != 0 and board[row][i] == board[row][i-1]:
-                        board[row][i-1] += board[row][i]
-                        board[row][i] = 0
+            point = 0
+            for col in range(1, N): # 0
+                # point 까지 밀어야함
+                if board[row][col]:
+                    temp = board[row][col]
+                    board[row][col] = 0
+                    if temp == board[row][point]:
+                        board[row][point] += temp
+                        point += 1
+                    elif board[row][point] == 0:
+                        board[row][point] = temp
+                    else: # 둘이 다른 경우 point += 1
+                        point += 1
+                        board[row][point] = temp
     elif command_num == 4: # 우
         for row in range(N): # 0
-            for col in range(N, -1, -1): # 0
-                for i in range(col, N-1): # 2 1 0
-                    if board[row][i] == 0:
-                        break
-                    elif rule(row, i+1) and board[row][i] != 0 and board[row][i+1] == 0:
-                    # 현재 board[row][i] 값이 0이 아니고, 다음칸이 빈칸이면, 
-                        board[row][i+1] = board[row][i]
-                        board[row][i] = 0
-                    elif rule(row, i+1) and board[row][i] != 0 and board[row][i] == board[row][i+1]:
-                        board[row][i+1] += board[row][i]
-                        board[row][i] = 0
+            point = N-1
+            for col in range(N-2, -1, -1): # 0
+                # point 까지 밀어야함
+                if board[row][col]:
+                    temp = board[row][col]
+                    board[row][col] = 0
+                    if temp == board[row][point]:
+                        board[row][point] += temp
+                        point -= 1
+                    elif board[row][point] == 0:
+                        board[row][point] = temp
+                    else: # 둘이 다른 경우 point += 1
+                        point -= 1
+                        board[row][point] = temp
     return board
-move(4, board_origin)
-move(3, board_origin)
-move(1, board_origin)
-for i in board_origin:
-    print(i)
-def backtracking(board_local, depth):
-    global max_value
-    if depth == 5:
-        for i in board_local:
-            max_value = max(max_value, max(i))
-    else:
-        for i in range(1, 5):
-            copy_board = copy.deepcopy(board_local)
-            backtracking(move(i, copy_board), depth + 1)
 
+# def backtracking(board_local, depth):
+#     global max_value
+#     if depth == 5:
+#         for i in board_local:
+#             max_value = max(max_value, max(i))
+            
+#     else:
+#         for i in range(1, 5):
+#             copy_board = copy.deepcopy(board_local)
+#             backtracking(move(i, copy_board), depth + 1)
+# # move(3, board_origin)
+# # for _ in board_origin:
+# #     print(_)
 # backtracking(board_origin, 0)
 # print(max_value)
+ans = 0
+def dfs(n, arr):
+    global ans
+    if n == 5:
+        for i in range(N):
+            for j in range(N):
+                if arr[i][j] > ans:
+                    ans = arr[i][j]
+        return
+
+    for i in range(1, 5):
+        copy_arr = copy.deepcopy(arr)
+        if i == 1:
+            dfs(n + 1, move(i, copy_arr))
+        elif i == 2:
+            dfs(n + 1, move(i, copy_arr))
+        elif i == 3:
+            dfs(n + 1, move(i, copy_arr))
+        else:
+            dfs(n + 1, move(i, copy_arr))
+
+dfs(0, board_origin)
+print(ans)
