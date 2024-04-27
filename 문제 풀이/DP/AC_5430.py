@@ -36,7 +36,7 @@ for i in range(case):
         elif c == 'D':
             if q:
                 if rev % 2 == 0:
-                    q.popfront()
+                    q.popleft()
                 else:
                     q.pop()
             else:
