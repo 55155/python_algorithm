@@ -8,7 +8,7 @@ for i in range(N): # 2차원
 # 가로방향 탐색
 for row in range(N):
     for col in range(N):
-        if board[row][col] == board[row][col]
+        print(board[row][col])
 # 세로방향 탐색
 for col in range(N):
     for row in range(N):
