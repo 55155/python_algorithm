@@ -43,6 +43,7 @@ def DFS(row,col,depth):
                     count += 1
                     if count == 4:
                         break_flag = True
+                        # backtracking 시에 항상 제자리로 돌려놓기
                         DFS(row, col, depth)
                         break_flag = False
 
